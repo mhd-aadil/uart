@@ -1,0 +1,257 @@
+$date
+	Wed May 20 10:03:34 2026
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module tb_loopback $end
+$var wire 1 ! rx_in $end
+$var wire 1 " tx_out $end
+$var wire 1 # tx_busy $end
+$var wire 1 $ rx_valid $end
+$var wire 8 % rx_data [7:0] $end
+$var reg 1 & clk $end
+$var reg 1 ' rstn $end
+$var reg 8 ( tx_data [7:0] $end
+$var reg 1 ) tx_start $end
+$scope module DUT $end
+$var wire 1 & clk $end
+$var wire 1 ' rstn $end
+$var wire 1 ! rx_in $end
+$var wire 8 * tx_data [7:0] $end
+$var wire 1 ) tx_start $end
+$var wire 1 " tx_out $end
+$var wire 1 # tx_busy $end
+$var wire 1 $ rx_valid $end
+$var wire 8 + rx_data [7:0] $end
+$var wire 1 , baud_clk $end
+$scope module baud_gen_inst $end
+$var wire 1 & clk $end
+$var wire 16 - div [15:0] $end
+$var wire 1 ' rstn $end
+$var parameter 32 . DIV_WIDTH $end
+$var reg 1 , baud_clk $end
+$var reg 16 / cnt [15:0] $end
+$upscope $end
+$scope module uart_rx_inst $end
+$var wire 1 , baud_clk $end
+$var wire 1 & clk $end
+$var wire 1 ' rstn $end
+$var wire 1 ! rx_in $end
+$var parameter 2 0 DATA $end
+$var parameter 32 1 DATA_WIDTH $end
+$var parameter 2 2 IDLE $end
+$var parameter 2 3 START $end
+$var parameter 2 4 STOP $end
+$var reg 3 5 bit_cnt [2:0] $end
+$var reg 8 6 data_out [7:0] $end
+$var reg 1 $ rx_valid $end
+$var reg 8 7 shift_reg [7:0] $end
+$var reg 2 8 state [1:0] $end
+$upscope $end
+$scope module uart_tx_inst $end
+$var wire 1 , baud_clk $end
+$var wire 1 & clk $end
+$var wire 8 9 data_in [7:0] $end
+$var wire 1 ' rstn $end
+$var wire 1 ) tx_start $end
+$var parameter 2 : DATA $end
+$var parameter 32 ; DATA_WIDTH $end
+$var parameter 2 < IDLE $end
+$var parameter 2 = START $end
+$var parameter 2 > STOP $end
+$var reg 3 ? bit_cnt [2:0] $end
+$var reg 8 @ shift_reg [7:0] $end
+$var reg 2 A state [1:0] $end
+$var reg 1 # tx_busy $end
+$var reg 1 " tx_out $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+b11 >
+b1 =
+b0 <
+b1000 ;
+b10 :
+b11 4
+b1 3
+b0 2
+b1000 1
+b10 0
+b10000 .
+$end
+#0
+$dumpvars
+bx A
+bx @
+bx ?
+b0 9
+b0 8
+b0 7
+b0 6
+b0 5
+b0 /
+b100 -
+0,
+b0 +
+b0 *
+0)
+b0 (
+0'
+0&
+b0 %
+0$
+x#
+x"
+x!
+$end
+#10
+0#
+b0 ?
+b0 @
+1!
+1"
+b0 A
+1&
+#20
+0&
+#30
+1&
+#40
+0&
+#50
+1&
+#60
+0&
+#70
+b1 /
+1'
+1&
+#80
+0&
+#90
+b10 /
+1&
+#100
+0&
+#110
+b11 /
+1&
+#120
+0&
+#130
+1,
+b0 /
+1&
+#140
+0&
+#150
+0,
+b1 /
+1)
+b10100101 (
+b10100101 *
+b10100101 9
+1&
+#160
+0&
+#170
+b10 /
+1&
+#180
+0&
+#190
+b11 /
+1&
+#200
+0&
+#210
+1,
+b0 /
+1&
+#220
+0&
+#230
+0,
+b1 /
+1&
+0)
+#240
+0&
+#250
+b10 /
+1&
+#260
+0&
+#270
+b11 /
+1&
+#280
+0&
+#290
+1,
+b0 /
+1&
+#300
+0&
+#310
+0,
+b1 /
+1&
+#320
+0&
+#330
+b10 /
+1&
+#340
+0&
+#350
+b11 /
+1&
+#360
+0&
+#370
+1,
+b0 /
+1&
+#380
+0&
+#390
+0,
+b1 /
+1&
+#400
+0&
+#410
+b10 /
+1&
+#420
+0&
+#430
+b11 /
+1&
+#440
+0&
+#450
+1,
+b0 /
+1&
+#460
+0&
+#470
+0,
+b1 /
+1&
+#480
+0&
+#490
+b10 /
+1&
+#500
+0&

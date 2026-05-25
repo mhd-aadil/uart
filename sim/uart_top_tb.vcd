@@ -1,0 +1,772 @@
+$date
+	Mon May 25 05:56:05 2026
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module uart_top_tb $end
+$var wire 1 ! w1 $end
+$var wire 1 " tx_busy $end
+$var wire 1 # tx $end
+$var wire 1 $ rx_valid $end
+$var wire 8 % rx_data [7:0] $end
+$var reg 1 & clk $end
+$var reg 1 ' rstn $end
+$var reg 1 ( rx_read $end
+$var reg 8 ) tx_data [7:0] $end
+$var reg 1 * tx_start $end
+$scope module dut $end
+$var wire 1 & clk $end
+$var wire 1 ' rstn $end
+$var wire 1 ! rx $end
+$var wire 8 + rx_data [7:0] $end
+$var wire 1 ( rx_read $end
+$var wire 8 , tx_data [7:0] $end
+$var wire 1 * tx_start $end
+$var wire 1 - tx_fifo_full $end
+$var wire 1 . tx_fifo_empty $end
+$var wire 8 / tx_fifo_data_out [7:0] $end
+$var wire 5 0 tx_fifo_count [4:0] $end
+$var wire 1 " tx_busy $end
+$var wire 1 # tx $end
+$var wire 1 $ rx_valid $end
+$var wire 1 1 rx_uart_valid $end
+$var wire 8 2 rx_uart_data [7:0] $end
+$var wire 1 3 rx_fifo_full $end
+$var wire 1 4 rx_fifo_empty $end
+$var wire 8 5 rx_fifo_data_out [7:0] $end
+$var wire 5 6 rx_fifo_count [4:0] $end
+$var wire 1 7 parity_error $end
+$var wire 1 8 framing_error $end
+$var wire 1 9 baud_clk $end
+$scope module baud_gen_inst $end
+$var wire 1 & clk $end
+$var wire 16 : div [15:0] $end
+$var wire 1 ' rstn $end
+$var parameter 32 ; DIV_WIDTH $end
+$var reg 1 9 baud_clk $end
+$var reg 16 < cnt [15:0] $end
+$upscope $end
+$scope module rx_fifo $end
+$var wire 1 & clk $end
+$var wire 1 ( rd_en $end
+$var wire 1 ' rstn $end
+$var wire 1 1 wr_en $end
+$var wire 1 3 full $end
+$var wire 1 4 empty $end
+$var wire 8 = data_in [7:0] $end
+$var parameter 32 > ADDR_WIDTH $end
+$var parameter 32 ? DATA_WIDTH $end
+$var parameter 32 @ DEPTH $end
+$var reg 5 A count [4:0] $end
+$var reg 8 B data_out [7:0] $end
+$var reg 4 C rd_pntr [3:0] $end
+$var reg 4 D wr_pntr [3:0] $end
+$upscope $end
+$scope module tx_fifo $end
+$var wire 1 & clk $end
+$var wire 8 E data_in [7:0] $end
+$var wire 1 F rd_en $end
+$var wire 1 ' rstn $end
+$var wire 1 * wr_en $end
+$var wire 1 - full $end
+$var wire 1 . empty $end
+$var parameter 32 G ADDR_WIDTH $end
+$var parameter 32 H DATA_WIDTH $end
+$var parameter 32 I DEPTH $end
+$var reg 5 J count [4:0] $end
+$var reg 8 K data_out [7:0] $end
+$var reg 4 L rd_pntr [3:0] $end
+$var reg 4 M wr_pntr [3:0] $end
+$upscope $end
+$scope module uart_rx_inst $end
+$var wire 1 & clk $end
+$var wire 16 N divisor [15:0] $end
+$var wire 1 O parity_en $end
+$var wire 1 P parity_type $end
+$var wire 1 ' rstn $end
+$var wire 1 ! rx $end
+$var parameter 3 Q DATA $end
+$var parameter 32 R DIV_WIDTH $end
+$var parameter 3 S IDLE $end
+$var parameter 3 T PARITY $end
+$var parameter 3 U START $end
+$var parameter 3 V STOP $end
+$var reg 3 W bit_cnt [2:0] $end
+$var reg 1 X calculated_parity_bit $end
+$var reg 16 Y cnt [15:0] $end
+$var reg 1 8 framing_error $end
+$var reg 1 7 parity_error $end
+$var reg 8 Z rx_data [7:0] $end
+$var reg 1 [ rx_parity_bit $end
+$var reg 8 \ rx_shift_reg [7:0] $end
+$var reg 1 ] rx_sync0 $end
+$var reg 1 ^ rx_sync1 $end
+$var reg 1 1 rx_valid $end
+$var reg 3 _ state [2:0] $end
+$upscope $end
+$scope module uart_tx_inst $end
+$var wire 1 9 baud_clk $end
+$var wire 1 & clk $end
+$var wire 1 ` parity_en $end
+$var wire 1 a parity_type $end
+$var wire 1 ' rstn $end
+$var wire 8 b tx_data [7:0] $end
+$var wire 1 c tx_start $end
+$var parameter 3 d DATA $end
+$var parameter 32 e DATA_WIDTH $end
+$var parameter 3 f IDLE $end
+$var parameter 3 g PARITY $end
+$var parameter 3 h START $end
+$var parameter 3 i STOP $end
+$var reg 3 j bit_cnt [2:0] $end
+$var reg 1 k parity_bit $end
+$var reg 8 l shift_reg [7:0] $end
+$var reg 3 m state [2:0] $end
+$var reg 1 # tx $end
+$var reg 1 " tx_busy $end
+$upscope $end
+$upscope $end
+$scope task read_byte $end
+$var reg 8 n data_out [7:0] $end
+$upscope $end
+$scope task send_byte $end
+$var reg 8 o data [7:0] $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+b100 i
+b1 h
+b11 g
+b0 f
+b1000 e
+b10 d
+b100 V
+b1 U
+b11 T
+b0 S
+b10000 R
+b10 Q
+b10000 I
+b1000 H
+b100 G
+b10000 @
+b1000 ?
+b100 >
+b10000 ;
+$end
+#0
+$dumpvars
+bx o
+bx n
+bx m
+bx l
+xk
+bx j
+0c
+b0 b
+0a
+0`
+b0 _
+1^
+1]
+b0 \
+0[
+b0 Z
+b0 Y
+0X
+b0 W
+0P
+0O
+b100 N
+b0 M
+b0 L
+b0 K
+b0 J
+0F
+b0 E
+b0 D
+b0 C
+b0 B
+b0 A
+b0 =
+b0 <
+b100 :
+09
+08
+07
+b0 6
+b0 5
+14
+03
+b0 2
+01
+b0 0
+b0 /
+1.
+0-
+b0 ,
+b0 +
+0*
+b0 )
+0(
+0'
+0&
+b0 %
+0$
+x#
+x"
+x!
+$end
+#10000
+0"
+b0 j
+b0 l
+1!
+1#
+b0 m
+1&
+#20000
+0&
+#30000
+1&
+#40000
+0&
+#50000
+1&
+#60000
+0&
+#70000
+1&
+#80000
+0&
+#90000
+b1 <
+b10100101 o
+1'
+1&
+#100000
+0&
+#110000
+b10 <
+1*
+b10100101 )
+b10100101 ,
+b10100101 E
+1&
+#120000
+0&
+#130000
+1F
+1c
+0.
+b11111 0
+b11111 J
+b11 <
+b1 M
+1&
+#140000
+0&
+#150000
+19
+b0 <
+b1 L
+b10100101 /
+b10100101 K
+b10100101 b
+b10 M
+1&
+#160000
+0&
+#170000
+0*
+0F
+0c
+b10 L
+09
+b1 <
+0k
+b1 m
+b10100101 l
+1"
+b11 M
+1&
+#180000
+0&
+#190000
+b10 <
+1&
+#200000
+0&
+#210000
+b11 <
+1&
+#220000
+0&
+#230000
+19
+b0 <
+1&
+#240000
+0&
+#250000
+09
+b1 <
+b10 m
+0!
+0#
+1&
+#260000
+0&
+#270000
+b10 <
+0]
+1&
+#280000
+0&
+#290000
+0^
+b11 <
+1&
+#300000
+0&
+#310000
+19
+b0 <
+b10 Y
+b1 _
+1&
+#320000
+0&
+#330000
+b1 Y
+09
+b1 <
+b1 j
+b1010010 l
+1!
+1#
+1&
+#340000
+0&
+#350000
+b10 <
+1]
+b0 Y
+1&
+#360000
+0&
+#370000
+b11 Y
+b10 _
+1^
+b11 <
+1&
+#380000
+0&
+#390000
+19
+b0 <
+b10 Y
+1&
+#400000
+0&
+#410000
+b1 Y
+09
+b1 <
+b10 j
+b101001 l
+0!
+0#
+1&
+#420000
+0&
+#430000
+b10 <
+0]
+b0 Y
+1&
+#440000
+0&
+#450000
+b1 W
+b11 Y
+1X
+b1 \
+0^
+b11 <
+1&
+#460000
+0&
+#470000
+19
+b0 <
+b10 Y
+1&
+#480000
+0&
+#490000
+b1 Y
+09
+b1 <
+b11 j
+b10100 l
+1!
+1#
+1&
+#500000
+0&
+#510000
+b10 <
+1]
+b0 Y
+1&
+#520000
+0&
+#530000
+b10 W
+b11 Y
+1^
+b11 <
+1&
+#540000
+0&
+#550000
+19
+b0 <
+b10 Y
+1&
+#560000
+0&
+#570000
+b1 Y
+09
+b1 <
+b100 j
+b1010 l
+0!
+0#
+1&
+#580000
+0&
+#590000
+b10 <
+0]
+b0 Y
+1&
+#600000
+0&
+#610000
+b11 W
+b11 Y
+0X
+b101 \
+0^
+b11 <
+1&
+#620000
+0&
+#630000
+19
+b0 <
+b10 Y
+1&
+#640000
+0&
+#650000
+b1 Y
+09
+b1 <
+b101 j
+b101 l
+1&
+#660000
+0&
+#670000
+b10 <
+b0 Y
+1&
+#680000
+0&
+#690000
+b100 W
+b11 Y
+b11 <
+1&
+#700000
+0&
+#710000
+19
+b0 <
+b10 Y
+1&
+#720000
+0&
+#730000
+b1 Y
+09
+b1 <
+b110 j
+b10 l
+1!
+1#
+1&
+#740000
+0&
+#750000
+b10 <
+1]
+b0 Y
+1&
+#760000
+0&
+#770000
+b101 W
+b11 Y
+1^
+b11 <
+1&
+#780000
+0&
+#790000
+19
+b0 <
+b10 Y
+1&
+#800000
+0&
+#810000
+b1 Y
+09
+b1 <
+b111 j
+b1 l
+0!
+0#
+1&
+#820000
+0&
+#830000
+b10 <
+0]
+b0 Y
+1&
+#840000
+0&
+#850000
+b110 W
+b11 Y
+1X
+b100101 \
+0^
+b11 <
+1&
+#860000
+0&
+#870000
+19
+b0 <
+b10 Y
+1&
+#880000
+0&
+#890000
+b1 Y
+09
+b1 <
+b100 m
+b0 j
+b0 l
+1!
+1#
+1&
+#900000
+0&
+#910000
+b10 <
+1]
+b0 Y
+1&
+#920000
+0&
+#930000
+b111 W
+b11 Y
+1^
+b11 <
+1&
+#940000
+0&
+#950000
+19
+b0 <
+b10 Y
+1&
+#960000
+0&
+#970000
+1F
+1c
+b1 Y
+09
+b1 <
+b0 m
+0"
+1&
+#980000
+0&
+#990000
+0F
+0c
+b10 <
+b0 Y
+1.
+b0 0
+b0 J
+b11 L
+1&
+#1000000
+0&
+#1010000
+b100 _
+b11 Y
+0X
+b10100101 \
+b11 <
+1&
+#1020000
+0&
+#1030000
+19
+b0 <
+b10 Y
+1&
+#1040000
+0&
+#1050000
+b1 Y
+09
+b1 <
+1&
+#1060000
+0&
+#1070000
+b10 <
+b0 Y
+1&
+#1080000
+0&
+#1090000
+b0 _
+11
+b10100101 2
+b10100101 =
+b10100101 Z
+b11 <
+1&
+#1100000
+0&
+#1110000
+19
+b0 <
+01
+1$
+04
+b11111 6
+b11111 A
+b1 D
+1&
+#1120000
+0&
+#1130000
+09
+b1 <
+1&
+#1140000
+0&
+#1150000
+b10 <
+1&
+#1160000
+0&
+#1170000
+b11 <
+1&
+#1180000
+0&
+#1190000
+19
+b0 <
+1&
+#1200000
+0&
+#1210000
+09
+b1 <
+1&
+#1220000
+0&
+#1230000
+b10 <
+1&
+#1240000
+0&
+#1250000
+b11 <
+1&
+#1260000
+0&
+#1270000
+19
+b0 <
+1(
+1&
+#1280000
+0&
+#1290000
+0$
+14
+b0 6
+b0 A
+b1 C
+b10100101 %
+b10100101 +
+b10100101 5
+b10100101 B
+09
+b1 <
+0(
+1&
+#1300000
+0&
+#1310000
+b10 <
+1&
+#1320000
+0&
+#1330000
+b11 <
+1&
+#1340000
+0&
+#1350000
+19
+b0 <
+1&
+#1360000
+0&
+#1370000
+09
+b1 <
+1&
+#1380000
+0&
+#1390000
+b10 <
+1&
