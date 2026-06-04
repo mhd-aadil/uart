@@ -11,18 +11,18 @@ output reg tx,
 output reg tx_busy
 );
 
-localparam IDLE  =3'b00 ;
-localparam START =3'b01 ;
-localparam DATA  =3'b10 ;
-localparam PARITY =3'b11 ;
-localparam STOP  =3'b100 ;
+localparam IDLE   = 3'b000;
+localparam START  = 3'b001;
+localparam DATA   = 3'b010;
+localparam PARITY = 3'b011;
+localparam STOP   = 3'b100;
 
   reg [2:0] state;
 reg [DATA_WIDTH-1:0] shift_reg;
 reg [2:0] bit_cnt;
 reg parity_bit;
 
-always @(posedge clk )
+always @(posedge clk or negedge rstn)
 begin
 if(!rstn)
 begin
@@ -37,6 +37,8 @@ begin
     case (state)
     IDLE: 
         begin
+            tx <= 1'b1;
+            tx_busy <= 1'b0;
             if(tx_start)
             begin
                 tx_busy<=1'b1;
@@ -79,6 +81,7 @@ begin
             begin
                 tx<=parity_bit; // Even parity
             end
+            state <= STOP;
 
         end
     STOP:
