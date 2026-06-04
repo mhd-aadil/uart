@@ -31,6 +31,7 @@ begin
     shift_reg<=8'b0;
     bit_cnt<=3'b0;
     tx_busy<=1'b0;
+    parity_bit <= 1'b0;
 end
 else if (baud_clk) 
 begin
