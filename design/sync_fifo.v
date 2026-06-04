@@ -21,20 +21,20 @@ reg [ADDR_WIDTH-1:0]rd_pntr;
 integer i;
 always@(posedge clk or negedge rstn)
 begin
-    if(!rstn || clear)
+    if(!rstn)
     begin
         data_out<={DATA_WIDTH{1'b0}};
         wr_pntr<={ADDR_WIDTH{1'b0}};
         rd_pntr<={ADDR_WIDTH{1'b0}};
         count<={(ADDR_WIDTH+1){1'b0}};
     end
-//  else if(clear)
-//  begin
-//       data_out<={DATA_WIDTH{1'b0}};
-//       wr_pntr<={ADDR_WIDTH{1'b0}};
-//       rd_pntr<={ADDR_WIDTH{1'b0}};
-//       count<={(ADDR_WIDTH+1){1'b0}};
-//  end
+  else if(clear)
+  begin
+       data_out<={DATA_WIDTH{1'b0}};
+       wr_pntr<={ADDR_WIDTH{1'b0}};
+       rd_pntr<={ADDR_WIDTH{1'b0}};
+       count<={(ADDR_WIDTH+1){1'b0}};
+  end
     else
     begin
         if(wr_en&&(!full))
