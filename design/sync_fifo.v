@@ -3,6 +3,7 @@ module sync_fifo #(parameter
         DATA_WIDTH=8) (
         input clk,
         input rstn,
+        input clear,
         input wr_en,
         input rd_en,
         input [DATA_WIDTH-1:0] data_in,
@@ -20,6 +21,13 @@ integer i;
 always@(posedge clk or negedge rstn)
 begin
     if(!rstn)
+    begin
+        data_out<={DATA_WIDTH{1'b0}};
+        wr_pntr<={ADDR_WIDTH{1'b0}};
+        rd_pntr<={ADDR_WIDTH{1'b0}};
+        count<={(ADDR_WIDTH+1){1'b0}};
+    end
+     else if(clear)
     begin
         data_out<={DATA_WIDTH{1'b0}};
         wr_pntr<={ADDR_WIDTH{1'b0}};
