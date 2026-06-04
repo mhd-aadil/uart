@@ -42,7 +42,7 @@ begin
             if(wr_pntr==(DEPTH-1))
                 wr_pntr<={ADDR_WIDTH{1'b0}};
             else
-                wr_pntr=wr_pntr+1'b1;
+                wr_pntr<=wr_pntr+1'b1;
         end
         if(rd_en&&(!empty))
         begin
@@ -55,8 +55,8 @@ begin
 
 
         case({wr_en&&(!full),rd_en&&(!empty)})
-        2'b01:count<=count+1'b1;
-        2'b10:count<=count-1'b1;
+        2'b10:count<=count+1'b1;
+        2'b01:count<=count-1'b1;
         default:count<=count;
 
         endcase
