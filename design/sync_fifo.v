@@ -1,6 +1,8 @@
 module sync_fifo #(parameter
         DEPTH=16,
-        DATA_WIDTH=8) (
+        DATA_WIDTH=8,
+        ADDR_WIDTH=$clog2(DEPTH)
+        ) (
         input clk,
         input rstn,
         input clear,
@@ -12,7 +14,6 @@ module sync_fifo #(parameter
         output empty,
         output reg [ADDR_WIDTH:0]count
 );
-localparam ADDR_WIDTH=$clog2(DEPTH);
 
 reg [DATA_WIDTH-1:0]mem[0:DEPTH-1];
 reg [ADDR_WIDTH-1:0]wr_pntr;
@@ -20,20 +21,20 @@ reg [ADDR_WIDTH-1:0]rd_pntr;
 integer i;
 always@(posedge clk or negedge rstn)
 begin
-    if(!rstn)
+    if(!rstn || clear)
     begin
         data_out<={DATA_WIDTH{1'b0}};
         wr_pntr<={ADDR_WIDTH{1'b0}};
         rd_pntr<={ADDR_WIDTH{1'b0}};
         count<={(ADDR_WIDTH+1){1'b0}};
     end
-     else if(clear)
-    begin
-        data_out<={DATA_WIDTH{1'b0}};
-        wr_pntr<={ADDR_WIDTH{1'b0}};
-        rd_pntr<={ADDR_WIDTH{1'b0}};
-        count<={(ADDR_WIDTH+1){1'b0}};
-    end
+//  else if(clear)
+//  begin
+//       data_out<={DATA_WIDTH{1'b0}};
+//       wr_pntr<={ADDR_WIDTH{1'b0}};
+//       rd_pntr<={ADDR_WIDTH{1'b0}};
+//       count<={(ADDR_WIDTH+1){1'b0}};
+//  end
     else
     begin
         if(wr_en&&(!full))
