@@ -17,7 +17,7 @@ module uart_top (
     input  wire       rx,
     output wire       tx
 );
-
+wire w1;
     //----------------------------------------
     // Register file outputs
     //----------------------------------------
@@ -210,7 +210,8 @@ module uart_top (
         .parity_en   (lcr[3]),
         .parity_type (lcr[4]),
 
-        .tx          (tx),
+        //.tx          (tx),
+        .tx          (w1),
         .tx_busy     (tx_busy)
     );
 
@@ -225,7 +226,8 @@ module uart_top (
 
         .divisor        (divisor),
 
-        .rx             (rx),
+        //.rx             (rx),
+        .rx             (w1),
 
         .parity_en      (lcr[3]),
         .parity_type    (lcr[4]),
@@ -262,5 +264,5 @@ module uart_top (
 
         .count    (rx_fifo_count)
     );
-
+//assign tx_ctrl_data = tx_fifo_dout;
 endmodule

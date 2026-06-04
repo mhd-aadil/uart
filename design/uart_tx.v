@@ -22,6 +22,17 @@ reg [DATA_WIDTH-1:0] shift_reg;
 reg [2:0] bit_cnt;
 reg parity_bit;
 
+reg tx_start_latch;
+
+// ─── Latch tx_start in fast clock domain ─────────────────────────────
+always @(posedge clk or negedge rstn) begin
+    if (!rstn)
+        tx_start_latch <= 1'b0;
+    else if (tx_start)
+        tx_start_latch <= 1'b1;   // Capture any-width pulse immediately
+    else if (state == START)
+        tx_start_latch <= 1'b0;   // Clear once transmission has begun
+end
 always @(posedge clk or negedge rstn)
 begin
 if(!rstn)
@@ -40,7 +51,7 @@ begin
         begin
             tx <= 1'b1;
             tx_busy <= 1'b0;
-            if(tx_start)
+            if(tx_start_latch)
             begin
                 tx_busy<=1'b1;
                 shift_reg<=tx_data;
@@ -88,7 +99,7 @@ begin
     STOP:
         begin
             tx<=1'b1; // Stop bit
-            tx_busy<=1'b0;
+            //tx_busy<=1'b0;
             state<=IDLE;
         end
         default:begin
