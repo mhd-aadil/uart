@@ -1,4 +1,16 @@
-/*LCR (Line Control Register) bit definitions:Bit   Name           Purpose[1:0] word length    5/6/7/8 bits[2]   stop bits      1 or 2 stop bits[3]   parity enable  enable parity[4]   parity type    even/odd[5]   stick parity   advanced[6]   break control   force TX low[7]   DLAB           divisor latch access*/
+//////////////////////////////////////////////////////////////////////////
+//LCR (Line Control Register)                                           //
+//bit  | definitions:                                                   //
+//Bit    Name                             Purpose                       //
+//-----------------------------------------------------------------     //
+//[1:0]| word length             |         5/6/7/8 bits                 //
+//[2]  | stop bits               |         1 or 2 stop bits             //
+//[3]  | parity enable           |         enable parity                //
+//[4]  | parity type             |         even/odd                     //
+//[5]  | stick parity            |         advanced                     //
+//[6]  | break control           |         force TX low                 //
+//[7]  | DLAB                    |         divisor latch access         //
+//////////////////////////////////////////////////////////////////////////
 
 module uart_reg_file(input  wire       clk,input  wire       rstn,
 
@@ -40,10 +52,23 @@ assign dlab = lcr[7];
 
 reg parity_error_latched;
 reg framing_error_latched;
+reg rbr_pending;   // high for one cycle after rx_fifo_rd issued
+
 
 reg irq_r;
 assign irq = irq_r;
-
+//////////////////////////////////////////////////////
+// Bit	|Name	  |Meaning                          //
+//--------------------------------------------------//
+// 0	|DR	      |Data Ready                       //
+// 1	|OE	      |Overrun Error                    //          
+// 2	|PE	      |Parity Error                     //  
+// 3	|FE 	  |Framing Error                    //
+// 4	|BI	      |Break Interrupt                  //
+// 5	|THRE	  |Transmit Holding Register Empty  //
+// 6	|TEMT	  |Transmitter Empty                //
+// 7	|RX Error |Error Summary                    //
+//////////////////////////////////////////////////////
 always @(*) begin
     lsr = 8'h00;
     lsr[0] = ~rx_fifo_empty;
@@ -81,6 +106,17 @@ always @(*) begin
 end
 
 wire irq_next;
+////////////////////////////////////////////////////////////////////////
+//Interrupt Enable Register (IER) bits                                //
+//--------------------------------------------------------------------//
+//Bit	|Name  	 |Purpose                                             //          
+//------|--------|----------------------------------------------------//
+//0	    |ERBFI	 |Enable RX Data Available Interrupt                  //
+//1	    |ETBEI	 |Enable THR Empty Interrupt                          //
+//2	    |ELSI	 |Enable Receiver Line Status Interrupt               //
+//3	    |EDSSI	 |Enable Modem Status Interrupt (not implemented)     //
+//[7:4]	|Reserved|	0                                                 //
+////////////////////////////////////////////////////////////////////////
 assign irq_next =
        (ier[2] && (parity_error_latched || framing_error_latched))
     || (ier[0] && !rx_fifo_empty)
@@ -101,12 +137,21 @@ always @(posedge clk or negedge rstn) begin
         rx_fifo_clear        <= 1'b0;
         parity_error_latched <= 1'b0;
         framing_error_latched<= 1'b0;
+        rbr_pending          <= 1'b0;
     end
     else begin
         tx_fifo_wr    <= 1'b0;
         rx_fifo_rd    <= 1'b0;
         tx_fifo_clear <= 1'b0;
         rx_fifo_clear <= 1'b0;
+        if (rx_fifo_rd) 
+        begin
+            rbr_pending <= 1'b1;  // data will be valid on next cycle
+        end
+        if (rbr_pending) begin
+            rdata       <= rx_fifo_data_out;  // now valid
+            rbr_pending <= 1'b0;
+        end
 
         if (parity_error)
             parity_error_latched <= 1'b1;
@@ -159,8 +204,9 @@ always @(posedge clk or negedge rstn) begin
                                         rdata <= 8'h00;
                                     else 
                                     begin
-                                        rdata <= rx_fifo_data_out;
                                         rx_fifo_rd <= 1'b1;
+                                        //rbr_pending <= 1'b1;
+                                        
                                     end
                                 end
                             end

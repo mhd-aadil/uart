@@ -210,8 +210,8 @@ wire w1;
         .parity_en   (lcr[3]),
         .parity_type (lcr[4]),
 
-        //.tx          (tx),
-        .tx          (w1),
+        .tx          (tx),
+       // .tx          (w1),
         .tx_busy     (tx_busy)
     );
 
@@ -265,4 +265,8 @@ wire w1;
         .count    (rx_fifo_count)
     );
 //assign tx_ctrl_data = tx_fifo_dout;
+   // wire w2;
+    assign w1=tx;
+    assign rx=w1;
+   // assign rx=w2;
 endmodule

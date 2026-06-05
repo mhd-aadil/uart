@@ -33,22 +33,39 @@ initial begin
 end
 
 task uart_write;
-input [2:0] addr;
-input [7:0] data;
+input [2:0] addr_i;
+input [7:0] data_i;
 begin
     @(posedge clk);
     cs    <= 1'b1;
     wr    <= 1'b1;
     rd    <= 1'b0;
-    addr  <= addr;
-    wdata <= data;
+    addr  <= addr_i;
+    wdata <= data_i;
 
     @(posedge clk);
     cs    <= 1'b0;
     wr    <= 1'b0;
+    #60000; // Wait for transmission to complete
 end
 endtask
+task uart_read;
+input [2:0] addr_i;
+//output [7:0] data;
+begin
+    @(posedge clk);
+    cs    <= 1'b1;
+    wr    <= 1'b0;
+    rd    <= 1'b1;
+    addr  <= addr_i;
 
+    @(posedge clk);
+    cs    <= 1'b0;
+    rd    <= 1'b0;
+   // data  <= rdata;
+end
+endtask
+reg [7:0] data;
 initial begin
     $dumpfile("uart_full_tb.vcd");
     $dumpvars(0, uart_full_tb); 
@@ -67,12 +84,38 @@ initial begin
     //--------------------------------
     // Write THR (addr=0)
     //--------------------------------
-    uart_write(3'b000, 8'hA5);
+    //uart_write(3'b011, 8'h1b);
+
+    /*repeat(10) begin
+        data = $random&8'hFF;
+        uart_write(3'b011, data);
+        #60000;
+    end*/
+    //uart_write(3'b011, 8'h80);
+    //uart_write(3'b000, 8'h34);
+    //uart_write(3'b001, 8'h12);
+    uart_write(3'b000, 8'h55);
+    uart_write(3'b001, 8'b00000001);
+    uart_read(3'b000);
+    //uart_read(3'b101);
+
+
+
 
     //--------------------------------
     // Wait
     //--------------------------------
-    #100000;
+    //#60000;
+   /* repeat(10) begin
+        uart_read(3'b011);
+       #4000;
+    end*/
+    //uart_read(3'b011);
+    //uart_read(3'b000);
+    //#20
+    //uart_read(3'b001);
+
+    #2000;
 
     $finish;
 end
