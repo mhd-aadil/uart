@@ -33,6 +33,26 @@ always @(posedge clk or negedge rstn) begin
     else if (state == START)
         tx_start_latch <= 1'b0;   // Clear once transmission has begun
 end
+//always @(posedge clk or negedge rstn)
+always @(*)
+begin
+    if(!rstn)
+    begin
+        tx_busy = 1'b0;
+    end
+
+    // Start immediately when request is latched
+    else if(state == IDLE && tx_start_latch)
+    begin
+        tx_busy = 1'b1;
+    end
+
+    // Transmission completed
+    else if(state == STOP && baud_clk)
+    begin
+        tx_busy = 1'b0;
+    end
+end
 always @(posedge clk or negedge rstn)
 begin
 if(!rstn)

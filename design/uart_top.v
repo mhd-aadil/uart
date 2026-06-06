@@ -226,8 +226,8 @@ wire w1;
 
         .divisor        (divisor),
 
-        //.rx             (rx),
-        .rx             (w1),
+        .rx             (rx),
+       // .rx             (w1),
 
         .parity_en      (lcr[3]),
         .parity_type    (lcr[4]),
@@ -266,7 +266,7 @@ wire w1;
     );
 //assign tx_ctrl_data = tx_fifo_dout;
    // wire w2;
-    assign w1=tx;
-    assign rx=w1;
+   // assign w1=tx;
+    //assign rx=w1;
    // assign rx=w2;
 endmodule
