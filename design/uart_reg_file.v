@@ -200,7 +200,7 @@ always @(posedge clk or negedge rstn) begin
                                 end
                                 else 
                                 begin
-                                    if (rx_fifo_empty)
+                                    if (rx_fifo_empty && !rbr_pending)
                                         rdata <= 8'h00;
                                     else 
                                     begin
