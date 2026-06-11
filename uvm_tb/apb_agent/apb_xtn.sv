@@ -1,6 +1,6 @@
 //  Module: apb_xtn
 //
-module apb_xtn extends uvm_sequence_item;
+class apb_xtn extends uvm_sequence_item;
      bit [7:0] addr;
      bit [2:0] data;
      bit        write;  // 1 for write, 0 for read
@@ -12,4 +12,4 @@ module apb_xtn extends uvm_sequence_item;
         super.new(name);
     endfunction: new
 
-endmodule: apb_xtn
+endclass: apb_xtn

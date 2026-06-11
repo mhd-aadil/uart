@@ -1,8 +1,8 @@
-class apb_env extends uvm_env;
-  `uvm_component_utils(apb_env);
+class uart_env extends uvm_env;
+  `uvm_component_utils(uart_env);
   apb_agent apb_agt;
   
-  function new(string name"apb_agent",uvm_component parent);
+  function new(string name="uart_env",uvm_component parent);
     super.new(name,parent);
   endfunction
   

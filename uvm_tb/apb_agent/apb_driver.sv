@@ -1,10 +1,15 @@
-class apb_driver exends uvm_driver#(apb_xtn);
+class apb_driver extends uvm_driver#(apb_xtn);
     `uvm_component_utils(apb_driver)
-    virtual apb_if apb_vif;
-
-    function new(string name, uvm_component parent);
+virtual uart_if apb_vif;
+  function new(string name="apb_driver", uvm_component parent);
         super.new(name, parent);
     endfunction: new
+  
+  function void build_phase(uvm_phase phase);
+    super.build_phase(phase);
+    if(!uvm_config_db#(
+    
+    
     task apb_write(apb_xtn xtn);
         @(posedge apb_vif.PCLK); #1;
         apb_vif.PADDR <= xtn.addr;
