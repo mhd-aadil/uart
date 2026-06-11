@@ -17,13 +17,13 @@ import uvm_pkg::*;
 
 module uart_tb_top;
     logic PCLK;
-    logic PRESETn;
+    //logic PRESETn;
 
     uart_if uart_vif(PCLK);
     // Instantiate the APB agent
     apb_uart DUT (
         .PCLK(PCLK),
-        .PRESETn(PRESETn),
+      .PRESETn(uart_vif.PRESETn),
         .PADDR(uart_vif.PADDR),
         .PWDATA(uart_vif.PWDATA),
         .PWRITE(uart_vif.PWRITE),
@@ -42,19 +42,19 @@ module uart_tb_top;
         forever #5 PCLK = ~PCLK; // 100MHz clock
     end 
 
-    initial begin
-        PRESETn = 0;
-        #100 PRESETn = 1; // Release reset after 100ns
-    end
+    //initial begin
+     //   PRESETn = 0;
+       // #100 PRESETn = 1; // Release reset after 100ns
+    //end
 
     initial
     begin
         $dumpfile("uart_tb_top.vcd");
         $dumpvars(0, uart_tb_top);
       uvm_config_db#(virtual uart_if)::set(null,"*","uart_vif",uart_vif);
-      run_test("lcr_rw_test");
+      run_test("div_rw_test");
         
-        #1000; // Run simulation for 1000ns
+        #100; // Run simulation for 100ns
         $finish;
     end
 endmodule

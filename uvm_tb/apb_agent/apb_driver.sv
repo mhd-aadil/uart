@@ -1,46 +1,49 @@
 class apb_driver extends uvm_driver#(apb_xtn);
     `uvm_component_utils(apb_driver)
-virtual uart_if apb_vif;
+virtual uart_if uart_vif;
   function new(string name="apb_driver", uvm_component parent);
         super.new(name, parent);
     endfunction: new
   
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
-    if(!uvm_config_db#(
+    if(!uvm_config_db#(virtual uart_if)::get(this, "","uart_vif",uart_vif)) begin
+        `uvm_fatal("APB_DRIVER", "Virtual interface not found")
+    end
+  endfunction: build_phase
     
     
     task apb_write(apb_xtn xtn);
-        @(posedge apb_vif.PCLK); #1;
-        apb_vif.PADDR <= xtn.addr;
-        apb_vif.PWRITE <= 1;
-        apb_vif.PWDATA <= xtn.data;
-        apb_vif.PSEL <= 1;
-        apb_vif.PENABLE <= 0;
-        @(posedge apb_vif.PCLK); #1;
-        apb_vif.PENABLE <= 1;
-        wait(apb_vif.PREADY);
-        @(posedge apb_vif.PCLK); #1;
-        apb_vif.PSEL <= 0;
-        apb_vif.PENABLE <= 0;
+        @(posedge uart_vif.PCLK); #1;
+        uart_vif.PADDR <= xtn.addr;
+        uart_vif.PWRITE <= 1;
+        uart_vif.PWDATA <= xtn.data;
+        uart_vif.PSEL <= 1;
+        uart_vif.PENABLE <= 0;
+        @(posedge uart_vif.PCLK); #1;
+        uart_vif.PENABLE <= 1;
+        wait(uart_vif.PREADY);
+        @(posedge uart_vif.PCLK); #1;
+        uart_vif.PSEL <= 0;
+        uart_vif.PENABLE <= 0;
         `uvm_info("APB_DRIVER", $sformatf("Write: addr=0x%0h, data=0x%0h", xtn.addr, xtn.data), UVM_LOW);
     endtask: apb_write
 
     task apb_read(apb_xtn xtn);
-        @(posedge apb_vif.PCLK); #1;
-        apb_vif.PADDR <= xtn.addr;
-        apb_vif.PWRITE <= 0;
-        apb_vif.PSEL <= 1;
-        apb_vif.PENABLE <= 0;
-        @(posedge apb_vif.PCLK); #1;
-        apb_vif.PENABLE <= 1;
-        wait(apb_vif.PREADY);
-        @(posedge apb_vif.PCLK); #1;
-        @(posedge apb_vif.PCLK); #1;
+        @(posedge uart_vif.PCLK); #1;
+        uart_vif.PADDR <= xtn.addr;
+        uart_vif.PWRITE <= 0;
+        uart_vif.PSEL <= 1;
+        uart_vif.PENABLE <= 0;
+        @(posedge uart_vif.PCLK); #1;
+        uart_vif.PENABLE <= 1;
+        wait(uart_vif.PREADY);
+        @(posedge uart_vif.PCLK); #1;
+        @(posedge uart_vif.PCLK); #1;
 
-        xtn.data = apb_vif.PRDATA;
-        apb_vif.PSEL <= 0;
-        apb_vif.PENABLE <= 0;
+        xtn.data = uart_vif.PRDATA;
+        uart_vif.PSEL <= 0;
+        uart_vif.PENABLE <= 0;
         `uvm_info("APB_DRIVER", $sformatf("Read: addr=0x%0h, data=0x%0h", xtn.addr, xtn.data), UVM_LOW);
     endtask: apb_read
 

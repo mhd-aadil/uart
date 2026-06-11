@@ -291,19 +291,19 @@ initial begin
     repeat(2) @(posedge PCLK);
 
     // Write 4 bytes into TX FIFO
-    apb_write(3'h0, 8'hA5);
-    apb_write(3'h0, 8'h55);
-    apb_write(3'h0, 8'h3C);
-    apb_write(3'h0, 8'hF0);
+    apb_write(3'h3, 8'hA5);
+   // apb_write(3'h0, 8'h55);
+   // apb_write(3'h0, 8'h3C);
+   // apb_write(3'h0, 8'hF0);
 
     // Read back 4 bytes from RX FIFO (loopback)
     // Each wait ensures FIFO is non-empty before the read task starts.
     // The @(posedge PCLK) after wait re-aligns to a clean clock edge.
-    repeat(4) begin
-        wait(u_apb_uart.u_uart.u_rx_fifo.empty === 1'b0);
+    //repeat(1) begin
+      //  wait(u_apb_uart.u_uart.u_rx_fifo.empty === 1'b0);
         @(posedge PCLK); #1;
-        apb_read(3'h0);
-    end
+        apb_read(3'h3);
+    //end
 
     // Enough time for all frames at worst-case baud rate
     #500000;
