@@ -1,3 +1,5 @@
+//  Module: apb_xtn
+//
 class apb_xtn extends uvm_sequence_item;
   bit [2:0] addr;
   bit [7:0] data;

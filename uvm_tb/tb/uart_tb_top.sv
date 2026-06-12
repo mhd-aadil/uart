@@ -18,7 +18,9 @@ import uvm_pkg::*;
 module uart_tb_top;
     logic PCLK;
     //logic PRESETn;
-
+  logic [7:0]w1;
+  logic [7:0]tx;
+  assign w1=tx;
     uart_if uart_vif(PCLK);
     // Instantiate the APB agent
     apb_uart DUT (
@@ -31,8 +33,8 @@ module uart_tb_top;
         .PENABLE(uart_vif.PENABLE),
         .PRDATA(uart_vif.PRDATA),
         .PREADY(uart_vif.PREADY),
-      .rx(1'b1), // Tie RX to idle state
-      .tx() ,// Connect TX to testbench for monitoring
+      .rx(w1), // Tie RX to idle state
+      .tx(tx) ,// Connect TX to testbench for monitoring
         .irq() // Connect IRQ to testbench for monitoring
         );
 
@@ -52,7 +54,7 @@ module uart_tb_top;
         $dumpfile("uart_tb_top.vcd");
         $dumpvars(0, uart_tb_top);
       uvm_config_db#(virtual uart_if)::set(null,"*","uart_vif",uart_vif);
-      run_test("div_rw_test");
+      run_test("thr_wr_test");
         
         #100; // Run simulation for 100ns
         $finish;

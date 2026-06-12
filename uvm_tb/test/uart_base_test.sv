@@ -89,3 +89,48 @@ class div_rw_test extends uart_base_test;
 
 endclass: div_rw_test
         
+class thr_write_test extends uart_base_test;
+    `uvm_component_utils(thr_write_test)
+
+    function new(string name = "thr_write_test", uvm_component parent = null);
+        super.new(name, parent);
+    endfunction
+
+    task run_phase(uvm_phase phase);
+        thr_write_seq seq;
+
+        super.run_phase(phase);
+      `uvm_info(get_type_name(), "Running thr write test", UVM_LOW)
+        
+        phase.raise_objection(this);
+        seq = thr_write_seq::type_id::create("seq");
+        seq.start(env.apb_agt.apb_seqr);
+        #60000ns;
+        phase.drop_objection(this);
+
+    endtask
+
+endclass: thr_write_test
+
+class thr_wr_test extends uart_base_test;
+    `uvm_component_utils(thr_wr_test)
+
+    function new(string name = "thr_wr_test", uvm_component parent = null);
+        super.new(name, parent);
+    endfunction
+
+    task run_phase(uvm_phase phase);
+        thr_wr_seq seq;
+
+        super.run_phase(phase);
+      `uvm_info(get_type_name(), "Running thr write read test", UVM_LOW)
+        
+        phase.raise_objection(this);
+        seq = thr_wr_seq::type_id::create("seq");
+        seq.start(env.apb_agt.apb_seqr);
+        #60000ns;
+        phase.drop_objection(this);
+
+    endtask
+
+endclass: thr_wr_test

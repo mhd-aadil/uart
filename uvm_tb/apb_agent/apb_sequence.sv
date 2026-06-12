@@ -133,8 +133,60 @@ class thr_write_seq extends apb_sequence;
     xtn=apb_xtn::type_id::create("xtn");
     start_item(xtn);
     
+    xtn.addr=3'b000;
+    xtn.data=8'h55;
+    xtn.write=1'b1;
+    
+    finish_item(xtn);
+    
+   /* start_item(xtn);
+    
+    xtn.addr=3'b000;
+    xtn.write=1'b0;
+    
+    finish_item(xtn);*/
+  endtask
+endclass
 
+class thr_wr_seq extends apb_sequence;
+  `uvm_object_utils(thr_wr_seq)
 
+    function new(string name = "thr_wr_seq");
+        super.new(name);
+    endfunction: new
+  task body;
+    apb_xtn xtn;
+    bit [7:0]lsr;
+    xtn=apb_xtn::type_id::create("xtn");
+    start_item(xtn);
+    
+    xtn.addr=3'b000;
+    xtn.data=8'h55;
+    xtn.write=1'b1;
+    
+    finish_item(xtn);
+    
+    do begin
+      start_item(xtn);
+      xtn.addr=3'b101;
+      xtn.write=1'b0;
+      
+      finish_item(xtn);
+      lsr=xtn.rdata;
+      `uvm_info(get_type_name(),
+                $sformatf("LSR = %0h", lsr),
+                UVM_LOW)
+    end while(lsr[0]==1'b0);
+      
+      
+    start_item(xtn);
+    
+    xtn.addr=3'b000;
+    xtn.write=1'b0;
+    
+    finish_item(xtn);
+  endtask
+endclass
 
 
 

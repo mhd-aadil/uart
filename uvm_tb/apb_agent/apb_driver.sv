@@ -40,11 +40,12 @@ virtual uart_if uart_vif;
         wait(uart_vif.PREADY);
         @(posedge uart_vif.PCLK); #1;
         @(posedge uart_vif.PCLK); #1;
+        @(posedge uart_vif.PCLK); #1;
 
-        xtn.data = uart_vif.PRDATA;
+        xtn.rdata = uart_vif.PRDATA;
         uart_vif.PSEL <= 0;
         uart_vif.PENABLE <= 0;
-        `uvm_info("APB_DRIVER", $sformatf("Read: addr=0x%0h, data=0x%0h", xtn.addr, xtn.data), UVM_LOW);
+      `uvm_info("APB_DRIVER", $sformatf("Read: addr=0x%0h, rdata=0x%0h", xtn.addr, xtn.rdata), UVM_LOW);
     endtask: apb_read
 
     task run_phase(uvm_phase phase);
@@ -53,7 +54,7 @@ virtual uart_if uart_vif;
         @(posedge uart_vif.PCLK); #1;
         @(posedge uart_vif.PCLK); #1;
         @(posedge uart_vif.PCLK); #1;
-      	uart_vif.PRESETn<=1'b0;
+      	uart_vif.PRESETn<=1'b1;
       	
         forever begin
             seq_item_port.get_next_item(xtn);
