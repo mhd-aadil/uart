@@ -15,7 +15,7 @@ virtual uart_if uart_vif;
     
     task apb_write(apb_xtn xtn);
         @(posedge uart_vif.PCLK); #1;
-        uart_vif.PADDR <= cdxtn.addr;
+        uart_vif.PADDR <= xtn.addr;
         uart_vif.PWRITE <= 1;
         uart_vif.PWDATA <= xtn.data;
         uart_vif.PSEL <= 1;
@@ -49,6 +49,12 @@ virtual uart_if uart_vif;
 
     task run_phase(uvm_phase phase);
         apb_xtn xtn;
+      	uart_vif.PRESETn<=1'b0;
+        @(posedge uart_vif.PCLK); #1;
+        @(posedge uart_vif.PCLK); #1;
+        @(posedge uart_vif.PCLK); #1;
+      	uart_vif.PRESETn<=1'b0;
+      	
         forever begin
             seq_item_port.get_next_item(xtn);
             if (xtn.write) begin
