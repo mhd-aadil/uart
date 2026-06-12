@@ -1,3 +1,5 @@
+`include "uart_top.v"
+
 module apb_uart(
 
     input  wire       PCLK,

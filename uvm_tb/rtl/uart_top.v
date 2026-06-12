@@ -1,3 +1,9 @@
+`include "baud_gen.v"
+`include "sync_fifo.v"
+`include "tx_controller.v"
+`include "uart_reg_file.v"
+`include "uart_rx.v"
+`include "uart_tx.v"
 module uart_top (
 
     input  wire       clk,
