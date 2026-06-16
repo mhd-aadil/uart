@@ -28,9 +28,9 @@ class uart_monitor extends uvm_monitor;
         @(negedge uart_vif.tx);
         uxtn=uart_xtn::type_id::create("uxtn");
         
-		 //----------------------------------
-         // Sample in middle of start bit
-         //----------------------------------
+		      //----------------------------------//
+          // Sample in middle of start bit    //
+          //----------------------------------//
         #(uart_vif.bit_time/2);
 
         if(uart_vif.tx != 1'b0)
@@ -59,9 +59,13 @@ class uart_monitor extends uvm_monitor;
                 UVM_MEDIUM
             );
 
-        end
+    end
 
-    endtask
+  endtask
+
+endclass
+
+
           
             
        
