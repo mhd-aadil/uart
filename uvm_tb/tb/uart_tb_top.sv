@@ -21,6 +21,7 @@ module uart_tb_top;
   logic [7:0]w1;
   logic [7:0]tx;
   assign w1=tx;
+  assign uart_vif.tx=w1;
     uart_if uart_vif(PCLK);
     // Instantiate the APB agent
     apb_uart DUT (
