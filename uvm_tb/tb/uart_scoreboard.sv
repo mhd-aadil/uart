@@ -59,7 +59,7 @@ class uart_scoreboard extends uvm_scoreboard;
           begin
             expected_data=expected_q.pop_front();
             if(expected_data!=uxtn.data)
-            begin
+              begin
               `uvm_error(
                     "SB",
                     $sformatf(
@@ -67,18 +67,27 @@ class uart_scoreboard extends uvm_scoreboard;
                     expected_data,
                     uxtn.data)
                 );
-            end
+              end
             else
-            begin
-              `uvm_info(
+              begin
+             /* `uvm_info(
                     "SB",
                     $sformatf(
                     "MATCH EXP=%02h ACT=%02h",
                     expected_data,
                     uxtn.data),
                     UVM_MEDIUM
-                );
-            end
+                );*/
+                string msg;
+msg = {"\n+----------------------------------+\n",
+       "|         SCOREBOARD MATCH         |\n",
+       "+----------------------------------+\n",
+       $sformatf("|  EXP = 0x%02h                     |\n", expected_data),
+       $sformatf("|  ACT = 0x%02h                     |\n", uxtn.data),
+       "+----------------------------------+"};
+`uvm_info("SB", msg, UVM_MEDIUM);
+                
+              end
           end
       end
   endtask

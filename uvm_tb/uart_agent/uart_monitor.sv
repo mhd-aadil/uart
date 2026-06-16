@@ -23,12 +23,17 @@ class uart_monitor extends uvm_monitor;
   
   task run_phase(uvm_phase phase);
     uart_xtn uxtn;
+    
+
   	forever 
       begin
+        
         @(negedge uart_vif.tx);
         uxtn=uart_xtn::type_id::create("uxtn");
         
-		      //----------------------------------//
+        
+        
+		   //----------------------------------//
           // Sample in middle of start bit    //
           //----------------------------------//
         #(uart_vif.bit_time/2);
@@ -38,11 +43,12 @@ class uart_monitor extends uvm_monitor;
         
         #(uart_vif.bit_time);
         
-        for(int i=0;i<8;i=i++)
+        for(int i=0;i<8;i++)
           begin
             uxtn.data[i]=uart_vif.tx;
             
             #(uart_vif.bit_time);
+            
             
           end
         if(uart_vif.tx!=1'b1)
