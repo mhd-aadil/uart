@@ -4,12 +4,16 @@ import uvm_pkg::*;
 
 
 `include "apb_xtn.sv"
+`include "uart_txn.sv"
 `include "apb_sequence.sv"
 `include "apb_driver.sv"
 `include "apb_monitor.sv"
+`include "uart_monitor.sv"
 `include "apb_sequencer.sv"
 
 `include "apb_agent.sv"
+`include "uart_agent.sv"
+
 `include "uart_scoreboard.sv"
 `include "uart_env.sv"
 `include "uart_base_test.sv"

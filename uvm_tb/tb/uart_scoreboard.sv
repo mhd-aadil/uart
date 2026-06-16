@@ -59,6 +59,7 @@ class uart_scoreboard extends uvm_scoreboard;
           begin
             expected_data=expected_q.pop_front();
             if(expected_data!=uxtn.data)
+            begin
               `uvm_error(
                     "SB",
                     $sformatf(
@@ -66,7 +67,9 @@ class uart_scoreboard extends uvm_scoreboard;
                     expected_data,
                     uxtn.data)
                 );
+            end
             else
+            begin
               `uvm_info(
                     "SB",
                     $sformatf(
@@ -75,6 +78,7 @@ class uart_scoreboard extends uvm_scoreboard;
                     uxtn.data),
                     UVM_MEDIUM
                 );
+            end
           end
       end
   endtask
