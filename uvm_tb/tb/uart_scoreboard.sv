@@ -1,5 +1,5 @@
 class uart_scoreboard extends uvm_scoreboard;
-  `uvm_component_utils("uart_scoreboard")
+  `uvm_component_utils(uart_scoreboard)
   uvm_tlm_analysis_fifo#(apb_xtn)apb_fifo;
   
   uvm_tlm_analysis_fifo#(uart_xtn)uart_fifo;
@@ -9,7 +9,7 @@ class uart_scoreboard extends uvm_scoreboard;
   
   
   function new(string name="uart_scoreboard",uvm_component parent);
-    super.new=(name,parent);
+    super.new(name,parent);
   endfunction
   function void build_phase(uvm_phase phase);
     super.build_phase(phase);
@@ -31,7 +31,7 @@ class uart_scoreboard extends uvm_scoreboard;
                     "SB",
                     $sformatf(
                     "EXPECTED PUSH = %02h",
-                    tx.data),
+                    xtn.data),
                     UVM_MEDIUM
                 );
         end
@@ -50,15 +50,14 @@ class uart_scoreboard extends uvm_scoreboard;
                     "SB",
                     $sformatf(
                     "EXPECTED PUSH = %02h",
-                    uxtn.data),
-                    UVM_MEDIUM
+                    uxtn.data)
                 );
                 continue;
         end
-        expected_data=expected_q.pop_front();
 
         else
           begin
+            expected_data=expected_q.pop_front();
             if(expected_data!=uxtn.data)
               `uvm_error(
                     "SB",

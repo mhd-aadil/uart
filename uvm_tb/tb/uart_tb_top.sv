@@ -10,7 +10,7 @@ import uvm_pkg::*;
 `include "apb_sequencer.sv"
 
 `include "apb_agent.sv"
-
+`include "uart_scoreboard.sv"
 `include "uart_env.sv"
 `include "uart_base_test.sv"
 

@@ -1,5 +1,5 @@
 class uart_monitor extends uvm_monitor;
-  `uvm_component_utils(uart_mnitor)
+  `uvm_component_utils(uart_monitor)
   virtual uart_if uart_vif;
   
   uvm_analysis_port#(uart_xtn)ap;
@@ -58,6 +58,7 @@ class uart_monitor extends uvm_monitor;
                 ),
                 UVM_MEDIUM
             );
+            uxtn.print();
 
     end
 

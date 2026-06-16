@@ -64,6 +64,8 @@ virtual uart_if uart_vif;
                 apb_read(xtn);
             end
             seq_item_port.item_done();
+            $display("XTN FROM APB Driver ");
+            xtn.print();
         end
     endtask: run_phase
 endclass: apb_driver

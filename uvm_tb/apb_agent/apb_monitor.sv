@@ -49,6 +49,8 @@ class apb_monitor extends uvm_monitor;
                     );
                 end
               ap.write(xtn);
+              $display("XTN FROM APB Monitor ");
+              xtn.print();
             end
         end
       endtask
