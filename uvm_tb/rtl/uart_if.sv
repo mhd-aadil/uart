@@ -10,7 +10,7 @@ interface uart_if(
     logic PREADY;
     logic PRESETn;
     logic tx; // UART TX line
-    //logic rx; // UART RX line (not used in this testbench)
+    logic rx; // UART RX line 
     time bit_time=440ns; // Time duration of one UART bit
 
 endinterface
