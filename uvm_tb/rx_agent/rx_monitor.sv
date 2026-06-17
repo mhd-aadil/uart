@@ -42,19 +42,9 @@ class rx_monitor extends uvm_component;
             ap.write(rxtn);
 
         end
-    endtask
 
-
-
-
-    
-        
-    
         `uvm_info(get_name(), "<run_phase> finished, objection dropped.", UVM_NONE)
     endtask: run_phase
-    ;
-        
-    endtask: name
     
 
     
