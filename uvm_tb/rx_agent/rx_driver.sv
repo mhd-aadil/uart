@@ -1,6 +1,7 @@
 class rx_driver extends uvm_driver#(rx_xtn);
     `uvm_component_utils(rx_driver)
 virtual uart_if uart_vif;
+    rx_xtn rxtn;
 
   function new(string name="rx_driver", uvm_component parent);
         super.new(name, parent);
@@ -14,17 +15,16 @@ virtual uart_if uart_vif;
     end
   endfunction: build_phase
 
-   task rx_driver::run_phase(uvm_phase phase);
+   task run_phase(uvm_phase phase);
     `uvm_info(get_name(), "<run_phase> started.", UVM_NONE)
-    rx_xtn rxtn;
     forever
     begin
     seq_item_port.get_next_item(rxtn);
-    rxtn_to_dut(rxtn);
+    rx_to_dut(rxtn);
     seq_item_port.item_done();
     end
     `uvm_info(get_name(), "<run_phase> finished", UVM_NONE)
-  endtask: run_phase
+  endtask
   task rx_to_dut(rx_xtn rxtn);
     begin
       uart_vif.rx<=1'b1;

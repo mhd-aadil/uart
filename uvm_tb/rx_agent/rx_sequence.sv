@@ -1,14 +1,14 @@
-class rx_sequence extends uvm_sequence#(rx_xtn);
+class rx_sequence_uart extends uvm_sequence#(rx_xtn);
 
-    `uvm_object_utils(rx_sequence);
+    `uvm_object_utils(rx_sequence_uart);
     
-    function new(string name = "rx_sequence");
+    function new(string name = "rx_sequence_uart");
         super.new(name);
     endfunction: new
     
-endclass: rx_sequence
+endclass: rx_sequence_uart
 
-class rx_sequence extends uvm_object;
+class rx_sequence extends rx_sequence_uart;
         `uvm_object_utils(rx_sequence);
     
     function new(string name = "rx_sequence");

@@ -148,6 +148,8 @@ class rx_wr_test extends uart_base_test;
     task run_phase(uvm_phase phase);
         phase.raise_objection(this);
         `uvm_info(get_name(), "<run_phase> started, objection raised.", UVM_NONE)
+        rx_seq=rx_sequence::type_id::create("rx_seq");
+        rx_read_seq=rx_read_sequence::type_id::create("rx_read_seq");
         rx_seq.start(env.rx_agt.rx_seqr);
         rx_read_seq.start(env.apb_agt.apb_seqr);
         #1000;

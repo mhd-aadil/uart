@@ -13,6 +13,8 @@ class uart_env extends uvm_env;
     super.build_phase(phase);
     apb_agt=apb_agent::type_id::create("apb_agt",this);
     uart_agt=uart_agent::type_id::create("uart_agt",this);
+    rx_agt=rx_agent::type_id::create("rx_agt",this);
+
     sb=uart_scoreboard::type_id::create("sb",this);
   endfunction
 
