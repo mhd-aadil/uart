@@ -134,3 +134,28 @@ class thr_wr_test extends uart_base_test;
     endtask
 
 endclass: thr_wr_test
+
+class rx_wr_test extends uart_base_test;
+
+    `uvm_component_utils(uart_base_test);
+    rx_sequence rx_seq;
+    rx_read_sequence rx_read_seq;
+    
+    function new(string name = "uart_base_test", uvm_component parent);
+        super.new(name, parent);
+    endfunction: new
+
+    task run_phase(uvm_phase phase);
+        phase.raise_objection(this);
+        `uvm_info(get_name(), "<run_phase> started, objection raised.", UVM_NONE)
+        rx_seq.start(env.rx_agt.rx_seqr);
+        rx_read_seq.start(env.apb_agt.apb_seqr);
+        #1000;
+        phase.drop_objection(this);
+        `uvm_info(get_name(), "<run_phase> finished, objection dropped.", UVM_NONE)
+    endtask: run_phase
+    
+    
+        
+endclass: uart_base_test
+    

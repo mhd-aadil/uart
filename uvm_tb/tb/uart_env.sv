@@ -2,6 +2,7 @@ class uart_env extends uvm_env;
   `uvm_component_utils(uart_env);
   apb_agent apb_agt;
   uart_agent uart_agt;
+  rx_agent rx_agt;
   uart_scoreboard sb;
   
   function new(string name="uart_env",uvm_component parent);
@@ -17,9 +18,11 @@ class uart_env extends uvm_env;
 
   function void connect_phase(uvm_phase phase);
     super.connect_phase(phase);
+
     apb_agt.apb_mon.ap.connect(sb.apb_fifo.analysis_export);
- 
-   uart_agt.uart_mon.ap.connect(sb.uart_fifo.analysis_export);
+    uart_agt.uart_mon.ap.connect(sb.uart_fifo.analysis_export);
+    rx_agt.rx_mon.ap.connect(sb.rx_fifo.analysis_export); 
+  
   endfunction
   
   

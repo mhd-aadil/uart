@@ -59,7 +59,7 @@ module uart_tb_top;
         $dumpfile("uart_tb_top.vcd");
         $dumpvars(0, uart_tb_top);
       uvm_config_db#(virtual uart_if)::set(null,"*","uart_vif",uart_vif);
-      run_test("thr_wr_test");
+      run_test("rx_wr_test");
         
         #100; // Run simulation for 100ns
         $finish;

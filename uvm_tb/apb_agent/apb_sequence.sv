@@ -188,6 +188,37 @@ class thr_wr_seq extends apb_sequence;
   endtask
 endclass
 
+`//  Class: rx_read_seq
+//
+class rx_read_sequence extends apb_sequence;
+    `uvm_object_utils(rx_read_sequence);
+
+    function new(string name = "rx_read_sequence");
+        super.new(name);
+    endfunction: new
+    task body;
+        bit[7:0]lsr;
+    apb_xtn xtn;
+    xtn=apb_xtn::type_id::create(xtn);
+    
+    do begin
+    start_item(xtn);
+    xtn.addr=3'b101
+    xtn.write=1'b0;
+    finish_item(xtn);
+    lsr=xtn.rdata;
+    end while(lsr[0]==1'b0);
+
+    start_item(xtn);
+    xtn.addr=3'b00;
+    xtn.write=1'b0;
+    finish_item(xtn);
+endtask
+
+endclass: rx_read_sequence
+
+
+
 
 
         
